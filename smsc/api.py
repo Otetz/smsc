@@ -136,7 +136,7 @@ class SMSC:
             raise GetStatusError(str([r.status_code, r.headers, r.text]))
         res = r.json()
         if isinstance(res, dict):
-            raise GetStatusError(str([r.status_code, r.headers, res]))
+            raise GetStatusError(str([r.status_code, r.headers, res]))  # pragma: no cover
         result = []
         for obj in res:
             result.append(StatusResponse(obj))

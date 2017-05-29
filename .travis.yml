@@ -15,8 +15,8 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
   - pip install coverage pytest-cov python-coveralls  # Travis-only packages
-  - python setup.py install
+  - pip install .
   - mkdir -p ./.cache
-script: py.test --cov
+script: py.test --cov smsc
 after_success:
   - coveralls
