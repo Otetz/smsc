@@ -17,7 +17,7 @@ python:
 install:
   - "pip install -r requirements.txt"
   - "pip install ."
-  - "pip install coverage python-coveralls"
+  - "pip install coverage pytest-cov python-coveralls"
 script: py.test --cov .
 after_success:
   - coveralls
