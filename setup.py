@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # flake8: noqa
-from typing import Dict
 
 import os
 import sys
@@ -49,7 +48,7 @@ if sys.argv[-1] == 'docs':
     os.system('cd docs/ && make html && cd ..')
     sys.exit()
 
-about = {}  # type: Dict[str, str]
+about = {}  # type: dict
 exec(get_file_content(os.path.join('smsc', '__version__.py')), about)
 
 setup(

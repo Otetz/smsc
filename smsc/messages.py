@@ -79,7 +79,7 @@ class SMSMessage(Message):
 
     def __init__(self, text: str, **kwargs: dict) -> None:  # noqa: D102
         assert len(text) <= 800
-        super().__init__(text, **kwargs)
+        super().__init__(text, msg_format=None, **kwargs)
 
 
 class FlashMessage(Message):

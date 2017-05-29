@@ -21,6 +21,7 @@ The some other API methods are supported - see `smsc.api`. Full documentation is
 :license: MIT, see LICENSE for more details.
 """
 
+import logging  # noqa: T005
 import sys  # noqa: T005
 
 # noinspection PyUnresolvedReferences
@@ -33,8 +34,6 @@ from .messages import SMSMessage, FlashMessage, ViberMessage  # noqa: F401
 from .exceptions import SMSCException, SendError, GetCostError, GetBalanceError, GetStatusError  # noqa: F401
 
 # Set default logging handler to avoid "No handler found" warnings.
-import logging  # noqa: T005
-
 try:  # Python 2.7+
     if sys.version_info >= (2, 7):
         from logging import NullHandler
