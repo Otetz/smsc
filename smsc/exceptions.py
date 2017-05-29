@@ -26,4 +26,4 @@ class GetStatusError(SMSCException):
 
 
 class GetBalanceError(SMSCException):
-    """A A Get Balance error occurred."""
+    """A Get Balance error occurred."""

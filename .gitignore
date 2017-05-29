@@ -2,4 +2,4 @@
 .eggs
 build
 docs/_build
-smsc.egg-info
+*.egg-info

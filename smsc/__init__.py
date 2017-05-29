@@ -5,15 +5,17 @@ SMSC.ru API Library.
 Smsc is an library to send messages through SMSC.ru HTTP API.
 Basic usage:
 
-    >>> from smsc.messages import SMSMessage    >>> from smsc.api import SMSC
+    >>> from smsc.messages import SMSMessage
+    >>> from smsc.api import SMSC
     >>> client = SMSC(login='alexey', password='psw')
-    >>> res = client.send(to='79999999999', message=SMSMessage(text='Hello, World!'))
-    >>> res.count
+    >>> res = client.send(to='79999999999', message=SMSMessage(text='Hello, World!'))  # doctest: +SKIP
+    >>> res.count # doctest: +SKIP
     1
-    >>> res.cost
+    >>> res.cost # doctest: +SKIP
     1.44
 
-The some other API methods are supported - see `smsc.api`. Full documentation is at <http://smsc.readthedocs.io/>.
+The some other API methods are supported - see `smsc.api`. Full documentation is at
+`Read the Docs <http://smsc_python.readthedocs.io/en/latest/>`_.
 
 :copyright: (c) 2017 by Alexey Shevchenko.
 :license: MIT, see LICENSE for more details.
