@@ -52,11 +52,11 @@ class Message(metaclass=ABCMeta):
             res["maxsms"] = self._maxsms
         return res
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Represent object as string."""
         return "<%s text=%s format=%s>" % (self.__class__.__name__, self._text, self._format)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Represent object for debug purposes."""
         return str(self)
 
@@ -77,7 +77,7 @@ class SMSMessage(Message):
         <SMSMessage text=Hello, World! format=None>
     """
 
-    def __init__(self, text: str, **kwargs) -> None:  # noqa: D102
+    def __init__(self, text: str, **kwargs: dict) -> None:  # noqa: D102
         assert len(text) <= 800
         super().__init__(text, **kwargs)
 
@@ -97,7 +97,7 @@ class FlashMessage(Message):
         <FlashMessage text=Hello, World! format=flash>
     """
 
-    def __init__(self, text: str, **kwargs) -> None:  # noqa: D102
+    def __init__(self, text: str, **kwargs: dict) -> None:  # noqa: D102
         assert len(text) <= 800
         super().__init__(text, msg_format="flash", **kwargs)
 
@@ -119,6 +119,6 @@ class ViberMessage(Message):
         <ViberMessage text=Hello, World! format=viber>
     """
 
-    def __init__(self, text: str, **kwargs) -> None:  # noqa: D102
+    def __init__(self, text: str, **kwargs: dict) -> None:  # noqa: D102
         assert len(text) <= 800
         super().__init__(text, msg_format="viber", **kwargs)

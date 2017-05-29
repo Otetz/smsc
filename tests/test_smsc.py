@@ -169,9 +169,9 @@ def test_get_balance(client: SMSC, params: dict):
         res = client.get_balance()
     assert res is not None
     assert isinstance(res, BalanceResponse)
-    assert str(res) == "<BalanceResponse balance=100.01 credit=None currency=RUR>"
+    assert str(res) == "<BalanceResponse balance=100.01 credit=0.00 currency=RUR>"
     assert res.balance == 100.01
-    assert res.credit is None
+    assert res.credit == 0.0
     assert res.currency == 'RUR'
 
 

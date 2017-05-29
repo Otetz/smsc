@@ -25,6 +25,13 @@ class SMSC:
     """
     Class for interaction with smsc.ru API.
 
+    Usage::
+
+        >>> from smsc.api import SMSC
+        >>> client = SMSC(login="alexey", password="psw")
+        >>> client
+        <SMSC login='alexey' sender='SMSC.ru'>
+
     :param str login: Account login name
     :param str password: Password or MD5 hash of password in lower case
     """
@@ -40,6 +47,10 @@ class SMSC:
         """Represent object as string."""
         return "<%s login='%s' sender='%s'>" % (self.__class__.__name__, self.__login, self.__sender)
 
+    def __repr__(self):
+        """Represent object for debug purposes."""
+        return str(self)
+
     @property
     def __auth(self) -> Dict[str, Any]:
         return {"login": self.__login, "psw": self.__password, "fmt": 3}
@@ -48,7 +59,18 @@ class SMSC:
         """
         Send the message.
 
-        :param Union[str, List[str]] to: Phone number or list of phone numbers
+        Usage::
+
+            >>> from smsc.messages import SMSMessage
+            >>> from smsc.api import SMSC
+            >>> client = SMSC(login='alexey', password='psw')
+            >>> res = client.send(to='79999999999', message=SMSMessage(text='Hello, World!'))  # doctest: +SKIP
+            >>> res.count  # doctest: +SKIP
+            1
+            >>> res.cost  # doctest: +SKIP
+            1.44
+
+        :param str|List[str] to: Phone number or list of phone numbers
         :param Message message: Concrete message instance for sending
         :return: Returns the API answer wrapped in the `SendResponse` object
         :rtype: SendResponse
@@ -65,7 +87,18 @@ class SMSC:
         """
         Retrieve cost of the message.
 
-        :param Union[str, List[str]] to: Phone number or list of phone numbers
+        Usage::
+
+            >>> from smsc.messages import SMSMessage
+            >>> from smsc.api import SMSC
+            >>> client = SMSC(login='alexey', password='psw')
+            >>> res = client.get_cost(to='79999999999', message=SMSMessage(text='Hello, World!'))  # doctest: +SKIP
+            >>> res.count  # doctest: +SKIP
+            1
+            >>> res.cost  # doctest: +SKIP
+            1.44
+
+        :param str|List[str] to: Phone number or list of phone numbers
         :param Message message: Concrete message instance for measure cost
         :return: Returns the API answer wrapped in the `CostResponse` object
         :rtype: CostResponse
@@ -82,8 +115,16 @@ class SMSC:
         """
         Get current status of sent message.
 
-        :param Union[str, List[str]] to: Phone number or list of phone numbers
-        :param Union[str, List[str]] msg_id: Identificato of sent message or list of them
+        Usage::
+
+            >>> from smsc.api import SMSC
+            >>> client = SMSC(login='alexey', password='psw')
+            >>> res = client.get_status(to='79999999999', msg_id='1')  # doctest: +SKIP
+            >>> res[0].status  # doctest: +SKIP
+            <Status status=1 name=Доставлено>
+
+        :param str|List[str] to: Phone number or list of phone numbers
+        :param str|List[str] msg_id: Identification of sent message or list of them
         :return: Returns the API answer wrapped in the list of `StatusResponse` objects
         :rtype: List[StatusResponse]
         """
@@ -94,6 +135,8 @@ class SMSC:
         if r.status_code != 200:
             raise GetStatusError(str([r.status_code, r.headers, r.text]))
         res = r.json()
+        if isinstance(res, dict):
+            raise GetStatusError(str([r.status_code, r.headers, res]))
         result = []
         for obj in res:
             result.append(StatusResponse(obj))
@@ -102,6 +145,14 @@ class SMSC:
     def get_balance(self) -> BalanceResponse:
         """
         Get current account balance.
+
+        Usage::
+
+            >>> from smsc.api import SMSC
+            >>> client = SMSC(login='alexey', password='psw')
+            >>> res = client.get_balance()  # doctest: +SKIP
+            >>> res  # doctest: +SKIP
+            <BalanceResponse balance=100.01 credit=None currency=RUR>
 
         :return: Returns the API answer wrapped in the `BalanceResponse` object
         :rtype: BalanceResponse

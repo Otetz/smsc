@@ -4,8 +4,8 @@ SMSC
 .. image:: https://img.shields.io/pypi/v/smsc.svg
     :target: https://pypi.python.org/pypi/smsc
 
-.. image:: https://readthedocs.org/projects/smsc/badge/?version=latest
-    :target: http://smsc.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/smsc_python/badge/?version=latest
+    :target: http://smsc_python.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
 .. image:: https://travis-ci.org/Otetz/smsc.svg?branch=master
@@ -41,7 +41,8 @@ Basic usage sample:
 
 .. code-block:: python
 
-    >>> from smsc.messages import SMSMessage    >>> from smsc.api import SMSC
+    >>> from smsc.messages import SMSMessage
+    >>> from smsc.api import SMSC
     >>> client = SMSC(login='alexey', password='psw')
     >>> res = client.send(to='79999999999', message=SMSMessage(text='Hello, World!'))
     >>> res.count
@@ -52,7 +53,7 @@ Basic usage sample:
 Documentation
 -------------
 
-Documentation is available at `Read the Docs <http://smsc.readthedocs.io/en/latest/>`_.
+Documentation is available at `Read the Docs <http://smsc_python.readthedocs.io/en/latest/>`_.
 
 Links
 -----

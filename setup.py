@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # flake8: noqa
 from typing import Dict
 
@@ -5,6 +6,7 @@ import os
 import sys
 
 from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -14,10 +16,32 @@ def get_file_content(file_name):
         return f.read()
 
 
+class PyTest(TestCommand):
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = []
+
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(self.pytest_args)
+        sys.exit(errno)
+
+
 # 'setup.py publish' shortcut.
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist bdist_wheel')
     os.system('twine upload dist/*')
+    sys.exit()
+
+# 'setup.py publish' shortcut.
+if sys.argv[-1] == 'init_docs':
+    os.system('mkdir -p docs && cd docs/ && sphinx-quickstart && cd ..')
     sys.exit()
 
 # 'setup.py publish' shortcut.
@@ -26,7 +50,7 @@ if sys.argv[-1] == 'docs':
     sys.exit()
 
 about = {}  # type: Dict[str, str]
-exec(get_file_content(os.path.join(here, 'smsc', '__version__.py')), about)
+exec(get_file_content(os.path.join('smsc', '__version__.py')), about)
 
 setup(
     name=about['__title__'],
@@ -41,7 +65,7 @@ setup(
         "Intended Audience :: Developers",
         "Intended Audience :: Information Technology",
         "Topic :: Software Development :: Libraries",
-        'Natural Language :: English',
+        "Natural Language :: English",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         'Programming Language :: Python :: 2.6',
@@ -51,11 +75,11 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
     ),
-    keywords='smsc.ru smsc sms',
+    keywords='smsc sms',
     packages=find_packages(),
     include_package_data=True,
-    install_requires=get_file_content('requirements.txt'),
-    tests_require=get_file_content('requirements_test.txt'),
     setup_requires=['pytest-runner'],
-    test_suite='tests',
+    install_requires=get_file_content('requirements.txt'),
+    tests_require=['pytest', 'requests_mock'],
+    cmdclass={'test': PyTest},
 )
