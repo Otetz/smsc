@@ -79,6 +79,6 @@ setup(
     include_package_data=True,
     setup_requires=['pytest-runner'],
     install_requires=get_file_content('requirements.txt'),
-    tests_require=['pytest', 'requests_mock'],
+    tests_require=get_file_content('requirements_test.txt'),
     cmdclass={'test': PyTest},
 )
