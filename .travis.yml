@@ -17,6 +17,6 @@ install:
   - pip install coverage pytest-cov python-coveralls  # Travis-only packages
   - python setup.py install
   - mkdir -p ./.cache
-script: py.test --cov .
+script: py.test --cov
 after_success:
   - coveralls
