@@ -1,5 +1,5 @@
-/.cache
-/*.egg-info
-/.eggs
-/build
-/docs/_*
+.cache
+.eggs
+build
+docs/_build
+*.egg-info
