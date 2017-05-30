@@ -28,6 +28,7 @@ class Message(metaclass=ABCMeta):
         self._translit = kwargs.get("translit")
         self._tinyurl = kwargs.get("tinyurl")
         self._maxsms = kwargs.get("maxsms")
+        self._charset = "utf-8"
 
     @property
     def format(self) -> str:
@@ -41,7 +42,7 @@ class Message(metaclass=ABCMeta):
 
     def encode(self) -> Dict[str, Any]:
         """Message parameters in dict, prepared for the API."""
-        res = {"mes": self._text}  # type: Dict[str, Any]
+        res = {"mes": self._text, "charset": self._charset}  # type: Dict[str, Any]
         if self._format is not None and self._format != "":
             res[self._format] = 1
         if self._translit is not None:

@@ -51,7 +51,9 @@ def test_message_sms():
     assert 'mes' in enc
     assert enc['mes'] is not None
     assert enc['mes'] == 'test'
-    assert len(enc.keys()) == 1
+    assert enc['charset'] is not None
+    assert enc['charset'] == 'utf-8'
+    assert len(enc.keys()) == 2
 
 
 # noinspection PyShadowingNames
