@@ -1,4 +1,4 @@
-arrow
-furl
-requests
-typing
+arrow==0.10.0
+furl==1.0.0
+requests==2.18.1
+typing==3.6.1
