@@ -1,4 +1,4 @@
-arrow
+arrow==0.10.0
 furl
 requests
 typing
