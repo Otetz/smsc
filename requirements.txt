@@ -1,4 +1,4 @@
 arrow
 furl
 requests
-typing
+typing; python_version < '3.5'
